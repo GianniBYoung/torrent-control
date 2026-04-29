@@ -18,13 +18,6 @@ const restoreOptions = () => {
 
         document.querySelector('#addpaused').checked = options.globals.addPaused;
 
-        options.servers.forEach((server, i) => {
-            let element = document.createElement('option');
-            element.setAttribute('value', i.toString());
-            element.textContent = server.name;
-            document.querySelector('#server').appendChild(element);
-        })
-
         options.globals.labels.forEach((label) => {
             let element = document.createElement('option');
             element.setAttribute('value', label);
@@ -32,13 +25,11 @@ const restoreOptions = () => {
             document.querySelector('#labels').appendChild(element);
         });
 
-        selectServer(options.globals.currentServer);
+        selectServer(0);
     });
 }
 
 const selectServer = (serverId) => {
-    document.querySelector('#server').value = serverId;
-
     const serverOptions = options.servers[serverId];
     const client = clientList.find((client) => client.id === serverOptions.application);
 
@@ -72,7 +63,13 @@ const selectServer = (serverId) => {
         labelSelect.disabled = false;
 
         if (serverOptions.defaultLabel) {
-            labelSelect.value = serverOptions.defaultLabel;
+            if (Array.isArray(serverOptions.defaultLabel)) {
+                Array.from(labelSelect.options).forEach((option) => {
+                    option.selected = serverOptions.defaultLabel.includes(option.value);
+                });
+            } else {
+                labelSelect.value = serverOptions.defaultLabel;
+            }
         }
     } else {
         labelSelect.value = '';
@@ -84,20 +81,18 @@ const selectServer = (serverId) => {
 }
 
 document.addEventListener('DOMContentLoaded', restoreOptions);
-document.querySelector('#server').addEventListener('change', (e) => selectServer(~~e.currentTarget.value));
 document.querySelector('#add-torrent').addEventListener('click', (e) => {
     e.preventDefault();
 
     const params = new URLSearchParams(window.location.search);
-    const label = document.querySelector('#labels').value;
+    const labels = Array.from(document.querySelector('#labels').selectedOptions).map((option) => option.value).filter((v) => v !== '');
     const path = document.querySelector('#directories').value;
     const addPaused = document.querySelector('#addpaused').checked;
-    const server = document.querySelector('#server').value;
 
     const options = {
-        server: parseInt(server, 10),
+        server: 0,
         paused: addPaused,
-        label: label !== '' ? label : null,
+        label: labels.length > 0 ? labels : null,
         path: path !== '' ? path : null,
     };
 

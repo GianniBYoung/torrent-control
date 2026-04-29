@@ -116,6 +116,30 @@ describe('TransmissionApi', () => {
         expect(fetchStub.firstCall.args[1].body).to.match(/{"method":"torrent-add","arguments":{"metainfo":".+?","paused":true,"download-dir":"\/mnt\/storage","labels":\["misc"]}}/);
     });
 
+    it('Add torrent with multiple labels', async () => {
+        const fetchStub= sinon.stub(global, 'fetch');
+
+        fetchStub.resolves({
+            ok: true,
+            status: 200,
+            headers: new Headers({
+                'content-type': 'application/json',
+            }),
+            json: () => Promise.resolve({
+                result: 'success',
+            }),
+        });
+
+        const torrentFile = await getTestTorrent();
+
+        await instance.addTorrent(torrentFile, {
+            label: ['label1', 'label2'],
+        });
+
+        expect(fetchStub.calledOnce).to.be.true;
+        expect(JSON.parse(fetchStub.firstCall.args[1].body).arguments.labels).to.deep.equal(['label1', 'label2']);
+    });
+
     it('Add torrent url', async () => {
         const fetchStub= sinon.stub(global, 'fetch');
 

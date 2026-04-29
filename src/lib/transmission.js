@@ -75,8 +75,12 @@ export default class TransmissionApi extends BaseClient {
                 if (options.path)
                     request.arguments['download-dir'] = options.path;
 
-                if (options.label)
-                    request.arguments.labels = [options.label];
+                if (options.label) {
+                    if (Array.isArray(options.label))
+                        request.arguments.labels = options.label;
+                    else
+                        request.arguments.labels = [options.label];
+                }
 
                 const headers = new Headers({
                     'Content-Type': 'application/json'
@@ -117,8 +121,12 @@ export default class TransmissionApi extends BaseClient {
             if (options.path)
                 request.arguments['download-dir'] = options.path;
 
-            if (options.label)
-                request.arguments.labels = [options.label];
+            if (options.label) {
+                if (Array.isArray(options.label))
+                    request.arguments.labels = options.label;
+                else
+                    request.arguments.labels = [options.label];
+            }
 
             const headers = new Headers({
                 'Content-Type': 'application/json'

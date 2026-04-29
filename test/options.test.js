@@ -28,7 +28,7 @@ describe('Test options', () => {
             servers: [
                 {
                     name: 'Default',
-                    application: 'biglybt',
+                    application: 'transmission',
                     hostname: '',
                     username: '',
                     password: '',
@@ -57,7 +57,7 @@ describe('Test options', () => {
             servers: [
                 {
                     name: 'My client',
-                    application: 'cloudtorrent',
+                    application: 'transmission',
                     hostname: 'https://127.0.0.1/',
                     username: '',
                     password: '',
@@ -98,7 +98,7 @@ describe('Test options', () => {
             servers: [
                 {
                     name: 'My client',
-                    application: 'cloudtorrent',
+                    application: 'transmission',
                     hostname: 'https://127.0.0.1/',
                     username: '',
                     password: '',
@@ -131,7 +131,7 @@ describe('Test options', () => {
             servers: [
                 {
                     name: 'My client',
-                    application: 'cloudtorrent',
+                    application: 'transmission',
                     hostname: 'https://127.0.0.1/',
                     username: '',
                     password: '',

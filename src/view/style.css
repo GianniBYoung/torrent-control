@@ -28,6 +28,11 @@ textarea.browser-style {
 select.browser-style {
     margin-bottom: 0;
 }
+select.browser-style[multiple] {
+    height: auto;
+    min-height: 100px;
+    padding: 4px;
+}
 .browser-style > input[type="text"],
 .browser-style > input[type="url"],
 .browser-style > input[type="password"] {

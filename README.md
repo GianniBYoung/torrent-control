@@ -1,34 +1,44 @@
-Add torrent and magnet links to your Bittorrent client's web interface.
+# Torrent Control (Transmission Edition)
 
-[Install to Firefox](https://addons.mozilla.org/addon/torrent-control/)
+Add torrent and magnet links directly to your Transmission Bittorrent client.
 
-Features:
+## Features
 - Supports magnet links
 - Supports private trackers
-- Supports multiple servers
-- Auto login for interfaces using HTTP auth
-- HTTP Digest authentication
-- Private mode and Multi-Account Container support
-- User defined URL matchers
-- Bittorrent client specific options eg.
-    - Fast resume on ruTorrent
-    - Piece priority on qBittorrent
+- Supports multiple labels (hold `Ctrl`/`Cmd` to select multiple)
+- Auto login using HTTP auth / Digest authentication
+---
 
-Supported clients:
-- BiglyBT<sup>1</sup>
-- Cloud Torrent
-- Deluge<sup>1,2</sup>
-- Flood<sup>1,2</sup>
-- ruTorrent<sup>1,2,3,4</sup>
-- Synology Download Station<sup>1</sup>
-- Tixati
-- Transmission<sup>1,2</sup>
-- tTorrent
-- µTorrent
-- Vuze<sup>1</sup>
-- qBittorrent<sup>1,2,3,4</sup>
+## Development
 
-<sup>1</sup> Supports download directories/paths
-<sup>2</sup> Supports labels/categories
-<sup>3</sup> Supports client specific extra options (sequential download, etc.)
-<sup>4</sup> Supports adding of RSS feeds
+### Requirements
+- [Node.js](https://nodejs.org/)
+- [npm](https://www.npmjs.com/)
+
+### Setup and Running
+1. Clone the repository and install dependencies:
+
+   ```bash
+   git clone https://github.com/Mika-/torrent-control.git
+   cd torrent-control
+   npm install
+   ```
+
+2. Start the extension in a temporary Firefox profile:
+
+   ```bash
+   npm start
+   ```
+
+### Manual Installation (Firefox/Zen)
+1. Open your browser and navigate to `about:debugging#/runtime/this-firefox`.
+2. Click **Load Temporary Add-on...**.
+3. Select the `src/manifest.json` file.
+
+### Permanent Installation (Zen/Firefox Dev Edition)
+1. Build the extension: `npm run build`.
+2. Locate the `.zip` file in `web-ext-artifacts/` and rename it to `.xpi`.
+3. In your browser, go to `about:config` and set `xpinstall.signatures.required` to `false`.
+4. Go to `about:addons`.
+5. Click the gear icon and select **Install Add-on From File...**.
+6. Select your `.xpi` file.
